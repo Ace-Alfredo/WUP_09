@@ -88,18 +88,31 @@ summary(best.model)
 from the results we got we can see that the best two element model is Height and Width which is what we used as well, when using the adjusted r square.
 
 
-
-
+## Pike
 
 ```{r}
-anova(Perchfullup,best.model)
+Pike <- filter(Fish,Species== "Pike")
+Pike <- select(Pike, -Species)
 ```
 
 
-### Best Two regressor model
+```{r}
+library(leaps)
+regsubsets.out <-
+regsubsets(Weight ~ .,
+data = Pike,
+nbest = 1, # 1 best model for each number of predictors
+nvmax = NULL, # NULL for no limit on number of variables
+force.in = NULL, force.out = NULL,
+method = "exhaustive")
+
+summary.out <- summary(regsubsets.out)
+as.data.frame(summary.out$outmat)
+library(car)
+subsets(regsubsets.out,statistic="adjr2",legend="bottom",main="Adjusted R^2")
+```
 
 
-## Pike
 
 ### Best Models
 
