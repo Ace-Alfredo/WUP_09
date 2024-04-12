@@ -17,6 +17,7 @@ output:
 require(tigerstats)
 require(tidyverse)
 require(leaps)
+Fish <- read.csv(file = "Fish.csv")
 ```
 
 # Predicting Fish Weight
@@ -32,8 +33,8 @@ summary(PerchModel1)
 ```
   
 ```{r}
-PerchModel3<- lm(Weight~. -Length1,Perch)
-summary(PerchModel3)
+PerchModel2<- lm(Weight~. -Length1,Perch)
+summary(PerchModel2)
 ```
 
 ```{r}
@@ -52,7 +53,7 @@ summary(PerchModel5)
 ```
 
 ```{r}
-regsubsets.out <- regsubsets(Weight~., data=Perch nbest=1, nvmax=NULL, force.in=NULL, forced.out=NULL,
+regsubsets.out <- regsubsets(Weight~., data=Perch, nbest=1, nvmax=NULL, force.in=NULL, force.out=NULL,
                              method="exhaustive")
 summary.out <- summary(regsubsets.out)
 ```
@@ -73,11 +74,27 @@ library(car)
 subsets(regsubsets.out,statistic="adjr2",legend="bottom",main="Adjusted R^2")
 ```
 
-
-
-## Perch
-
 ### Best Models
+```{r}
+which.max(summary.out$adjr2)
+```
+```{r}
+summary.out$which[2,]
+```
+```{r}
+best.model <- lm(Weight~Height+Width,data=Perch)
+summary(best.model)
+```
+from the results we got we can see that the best two element model is Height and Width which is what we used as well, when using the adjusted r square.
+
+
+
+
+
+```{r}
+anova(Perchfullup,best.model)
+```
+
 
 ### Best Two regressor model
 
