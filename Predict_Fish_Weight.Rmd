@@ -141,10 +141,9 @@ as.data.frame(summary.out$outmat)
 library(car)
 subsets(regsubsets.out,statistic="adjr2",legend="bottomleft",main="Adjusted R^2")
 ```
+The bet two element used is Length3 and Width, but the best overall was also these two elements being Length3 and Width when using adjusted R square.
 
-
-### Best Models
-
-### Best Two regressor model
 
 ## Final Summary Statements
+
+I learned how to use code from scatch and better understaning how to code when it comes to graphing. Also finding the best R adjusted squared model.
